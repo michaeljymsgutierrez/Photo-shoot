@@ -6,7 +6,7 @@
 app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cordovaFile', '$filter', function($scope, $ionicPlatform, $cordovaCamera, $cordovaFile, $filter) {
 
     /*
-        Platform Ready
+        Platform Ready Instance
     */
     $ionicPlatform.ready(function() {
         var options = {
@@ -23,7 +23,7 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cor
         };
 
         /*
-            Get Picture
+            Take Photo
         */
         $cordovaCamera.getPicture(options).then(function(imageData) {
             var image = 'data:image/png;base64' + imageData;
@@ -37,7 +37,14 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cor
             $cordovaFile.createFile(cordova.file.externalRootDirectory, "photoshoot.json", true).then(function(success) {
                 $cordovaFile.writeFile(cordova.file.externalRootDirectory, "photoshoot.json", JSON.stringify(writeFile), true)
                     .then(function(success) {
-                        console.log(success);
+                        var sApp = startApp.set({
+                            "package": "com.vielsoft.mobilekiosk"
+                        });
+                        sApp.start(function() {
+                            console.log("Successfully started");
+                        }, function(error) {
+                            console.log(error)
+                        });
                     }, function(error) {
                         console.log(error);
                     });
