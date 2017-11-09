@@ -34,12 +34,12 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cor
                 image: image,
                 created: created
             };
-            $cordovaFile.createFile(cordova.file.externalRootDirectory, "data.json", true).then(function(success) {
-                $cordovaFile.writeFile(cordova.file.externalRootDirectory, "data.json", JSON.stringify(writeFile), true)
+            $cordovaFile.createFile(cordova.file.externalRootDirectory, "photoshoot.json", true).then(function(success) {
+                $cordovaFile.writeFile(cordova.file.externalRootDirectory, "photoshoot.json", JSON.stringify(writeFile), true)
                     .then(function(success) {
-                        console.log(1);
+                        console.log(success);
                     }, function(error) {
-                        console.log(0);
+                        console.log(error);
                     });
             }, function(error) {
                 console.log(error);
