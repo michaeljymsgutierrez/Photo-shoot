@@ -3,7 +3,7 @@
 /*
     Photoshoot Controller
 */
-app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', function($scope, $ionicPlatform, $cordovaCamera) {
+app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', 'DBAccess', function($scope, $ionicPlatform, $cordovaCamera, DBAccess) {
 
     /*
         Platform Ready
@@ -26,7 +26,23 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', funct
             Get Picture
         */
         $cordovaCamera.getPicture(options).then(function(imageData) {
-            console.log(imageData)
+            var image = 'data:image/png;base64' + imageData;
+            var filename = Math.floor(new Date().getTime() / 1000) + '.png';
+            var created = new Date();
+            var query = "SELECT * FROM photo"
+            var param = [];
+            DBAccess.execute(query, param).then(function(res) {
+                var len = res.rows.length;
+                var query = len == 0 ? "INSERT INTO photo (filename, image, created) VALUES (?,?,?)" : "UPDATE photo SET filename = ?, image = ? , created = ?";
+                var param = [filename, image, created];
+                DBAccess.execute(query, param).then(function(res) {
+                    console.log(res);
+                }, function(err) {
+                    console.log(err);
+                });
+            }, function(err) {
+                console.log(err);
+            });
         }, function(err) {
             console.log(err);
         });
