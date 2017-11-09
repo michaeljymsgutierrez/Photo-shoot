@@ -4,8 +4,6 @@
   Photoshoot module
 */
 var app = angular.module('photoshoot', ['ionic', 'ngCordova']);
-var db = null;
-
 
 app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
