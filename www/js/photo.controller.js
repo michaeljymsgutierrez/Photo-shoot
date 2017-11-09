@@ -3,7 +3,7 @@
 /*
     Photoshoot Controller
 */
-app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cordovaFile', '$http', function($scope, $ionicPlatform, $cordovaCamera, $cordovaFile, $http) {
+app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cordovaFile', '$filter', function($scope, $ionicPlatform, $cordovaCamera, $cordovaFile, $filter) {
 
     /*
         Platform Ready
@@ -28,7 +28,7 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cor
         $cordovaCamera.getPicture(options).then(function(imageData) {
             var image = 'data:image/png;base64' + imageData;
             var filename = Math.floor(new Date().getTime() / 1000) + '.png';
-            var created = new Date();
+            var created = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:00');
             var writeFile = {
                 filename: filename,
                 image: image,
@@ -46,11 +46,6 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cor
             });
         }, function(err) {
             console.log(err);
-        });
-        $cordovaFile.readAsText(cordova.file.externalRootDirectory, "data.json").then(function(success) {
-            $scope.data = success;
-        }, function(error) {
-            $scope.data = error;
         });
     });
 }]);
