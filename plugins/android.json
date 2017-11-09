@@ -31,9 +31,6 @@
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.ionicframework.photoshoot620171"
         },
-        "cordova-plugin-dbcopy": {
-            "PACKAGE_NAME": "com.ionicframework.photoshoot620171"
-        },
         "com.lampa.startapp": {
             "PACKAGE_NAME": "com.ionicframework.photoshoot620171"
         },
