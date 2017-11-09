@@ -3,7 +3,7 @@
 /*
     Photoshoot Controller
 */
-app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', 'DBAccess', function($scope, $ionicPlatform, $cordovaCamera, DBAccess) {
+app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cordovaFile', '$http', function($scope, $ionicPlatform, $cordovaCamera, $cordovaFile, $http) {
 
     /*
         Platform Ready
@@ -29,23 +29,28 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', 'DBAc
             var image = 'data:image/png;base64' + imageData;
             var filename = Math.floor(new Date().getTime() / 1000) + '.png';
             var created = new Date();
-            var query = "SELECT * FROM photo"
-            var param = [];
-            DBAccess.execute(query, param).then(function(res) {
-                var len = res.rows.length;
-                var query = len == 0 ? "INSERT INTO photo (filename, image, created) VALUES (?,?,?)" : "UPDATE photo SET filename = ?, image = ? , created = ?";
-                var param = [filename, image, created];
-                DBAccess.execute(query, param).then(function(res) {
-                    console.log(res);
-                }, function(err) {
-                    console.log(err);
-                });
-            }, function(err) {
-                console.log(err);
+            var writeFile = {
+                filename: filename,
+                image: image,
+                created: created
+            };
+            $cordovaFile.createFile(cordova.file.externalRootDirectory, "data.json", true).then(function(success) {
+                $cordovaFile.writeFile(cordova.file.externalRootDirectory, "data.json", JSON.stringify(writeFile), true)
+                    .then(function(success) {
+                        console.log(1);
+                    }, function(error) {
+                        console.log(0);
+                    });
+            }, function(error) {
+                console.log(error);
             });
         }, function(err) {
             console.log(err);
         });
+        $cordovaFile.readAsText(cordova.file.externalRootDirectory, "data.json").then(function(success) {
+            $scope.data = success;
+        }, function(error) {
+            $scope.data = error;
+        });
     });
-
 }]);

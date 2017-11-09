@@ -32,6 +32,5 @@
   },
   "_source": "https://github.com/driftyco/ionic-native-bower.git",
   "_target": "^2.0.3",
-  "_originalSource": "ionic-native",
-  "_direct": true
+  "_originalSource": "ionic-native"
 }
