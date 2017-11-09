@@ -18,11 +18,7 @@ app.run(function($ionicPlatform, DBAccess) {
         }
         db = window.sqlitePlugin.openDatabase({ name: 'photoshoot.db', location: 'default' });
 
-        DBAccess.execute("CREATE TABLE IF NOT EXISTS photo (id integer primary key, filename longtext, image longtext, created datetime)", []).then(function(res) {
-            console.log(res);
-        }, function(err) {
-            console.log(err);
-        });
+        DBAccess.execute("CREATE TABLE IF NOT EXISTS photo (id integer primary key, filename longtext, image longtext, created datetime)", []);
 
     });
 });
