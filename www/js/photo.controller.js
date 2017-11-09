@@ -42,6 +42,7 @@ app.controller('photoCtrl', ['$scope', '$ionicPlatform', '$cordovaCamera', '$cor
                         });
                         sApp.start(function() {
                             console.log("Successfully started");
+                            navigator.app.exitApp();
                         }, function(error) {
                             console.log(error)
                         });
