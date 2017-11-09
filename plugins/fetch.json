@@ -63,15 +63,6 @@
         "is_top_level": false,
         "variables": {}
     },
-    "cordova-sqlite-storage": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/litehelpers/Cordova-sqlite-storage.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "com.lampa.startapp": {
         "source": {
             "type": "registry",
