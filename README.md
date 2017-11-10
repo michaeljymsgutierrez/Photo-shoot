@@ -8,8 +8,10 @@
 2. `com.lampa.startapp`
 
 ###### How to use data from ```Photo-shoot``` ?
+
 1. On your application wirte down this snippet on your button function for taking picture.
 Note: must be on readystate
+
 ```javascript
     var sApp = startApp.set({
         "package": "com.ionicframework.photoshoot620171"
@@ -26,6 +28,7 @@ Note: must be on readystate
 
 3. Now, how can I used the data from ```Photo-shoot``` ?
     * Simply write down this code on your controller for specific section:
+    
 ```javascript
    $cordovaFile.readAsText(cordova.file.externalRootDirectory, "photoshoot.json")
   .then(function (success) {
